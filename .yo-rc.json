@@ -1,0 +1,35 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "authenticationType": "oauth2",
+    "backendType": "Quarkus",
+    "baseName": "AbdQuarkus",
+    "blueprints": [
+      {
+        "name": "generator-jhipster-quarkus",
+        "version": "3.6.0"
+      }
+    ],
+    "buildTool": "maven",
+    "cacheProvider": "no",
+    "clientFramework": "no",
+    "clientTestFrameworks": null,
+    "clientTheme": null,
+    "creationTimestamp": 1765962898587,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "enableHibernateCache": true,
+    "enableTranslation": true,
+    "entities": [],
+    "jhipsterVersion": "8.10.0",
+    "languages": ["it", "en"],
+    "microfrontend": null,
+    "microfrontends": [],
+    "nativeLanguage": "it",
+    "packageName": "it.abd.quarkus",
+    "prodDatabaseType": "postgresql",
+    "serverPort": null,
+    "skipClient": true,
+    "withAdminUi": null
+  }
+}

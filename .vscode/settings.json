@@ -1,0 +1,93 @@
+{
+  "cSpell.words": [
+    "quarkus"
+  ],
+
+  "java.format.settings.url": "eclipse/formatter.xml",
+  "java.format.settings.profile": "Java Custom",
+  "[java]": {
+    "editor.defaultFormatter": "redhat.java"
+  },
+
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-21",
+      "path": "${workspaceFolder}/.jdk/temurin-21",
+      "default": true
+    }
+  ],
+  "java.jdt.ls.java.home": "${workspaceFolder}/.jdk/temurin-21",
+  "java.jdt.ls.vmargs": "-Xms1024m -Xmx6144m -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Dfile.encoding=UTF-8",
+
+  "java.autobuild.enabled": false,
+  "java.import.maven.enabled": true,
+  "java.project.importOnFirstTimeStartup": "automatic",
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.server.launchMode": "Standard",
+
+  "java.completion.enabled": true,
+  "java.completion.guessMethodArguments": false,
+  "java.completion.maxResults": 50,
+  "java.signatureHelp.enabled": false,
+  "java.referencesCodeLens.enabled": false,
+  "java.implementationsCodeLens.enabled": false,
+
+  "maven.executable.preferMavenWrapper": true,
+  "maven.executable.path": "${workspaceFolder}/mvnw.cmd",
+  "maven.terminal.useJavaHome": true,
+
+  "maven.settingsFile": "${workspaceFolder}/.mvn/settings.xml",
+  "maven.toolchainsFile": "${workspaceFolder}/.mvn/toolchains.xml",
+  "java.configuration.maven.userSettings": "${workspaceFolder}/.mvn/settings.xml",
+  "java.configuration.maven.userToolchains": "${workspaceFolder}/.mvn/toolchains.xml",
+
+  "java.import.gradle.enabled": false,
+  "java.import.exclusions": [
+    "**/target/**",
+    "**/node_modules/**",
+    "**/.git/**",
+    "**/.mvn/**"
+  ],
+
+  "git.autorefresh": false,
+  "git.enabled": true,
+
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+  
+  "telemetry.telemetryLevel": false,
+  "workbench.enableExperiments": false,
+
+  "editor.hover.enabled": "on", 
+  "editor.parameterHints.enabled": true, 
+  "editor.lightbulb.enabled": "off", 
+  "editor.quickSuggestions": { 
+    "other":false, 
+    "comments": false, 
+    "strings": false 
+  }, 
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.signatureHelp.enabled": false,
+
+  "editor.suggestSelection": "first",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+
+  "files.watcherExclude": {
+    "**/target/**": true,
+    "**/node_modules/**": true,
+    "**/.git/**": true,
+    "**/.m2/**": true
+  },
+  "search.exclude": {
+    "**/target/**": true,
+    "**/node_modules/**": true
+  },
+  "xml.validation.exclude": [
+    "**/checkstyle.xml",
+    "**/checkstyle-suppressions.xml"
+  ],
+  "files.associations": {
+    "**/checkstyle.xml": "plaintext",
+    "**/checkstyle-suppressions.xml": "plaintext"
+  }
+}

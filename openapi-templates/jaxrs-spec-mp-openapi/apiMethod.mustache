@@ -1,0 +1,13 @@
+    @{{httpMethod}}{{#subresourceOperation}}
+    @Path("{{{path}}}"){{/subresourceOperation}}{{#hasConsumes}}
+    @Consumes({ {{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}} }){{/hasConsumes}}{{#hasProduces}}
+    @Produces({ {{#produces}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/produces}} }){{/hasProduces}}
+    {{#useJakartaEe}}{{#interfaceOnly}}
+    @Operation(operationId = "{{#vendorExtensions.x-tags}}{{tag}}_{{/vendorExtensions.x-tags}}{{{operationId}}}"{{#summary}}, summary = "{{{summary}}}"{{/summary}}{{#notes}}, description = "{{{notes}}}"{{/notes}})
+    @APIResponses(value = { {{#responses}}
+        @APIResponse(responseCode = "{{{code}}}"{{#message}}, description = "{{{message}}}"{{/message}}){{^-last}},{{/-last}}{{/responses}}
+    })
+    {{/interfaceOnly}}{{/useJakartaEe}}
+    public {{#supportAsync}}CompletionStage<{{/supportAsync}}Response{{#supportAsync}}>{{/supportAsync}} {{nickname}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>cookieParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{^-last}},{{/-last}}{{/allParams}}) {
+        return {{#supportAsync}}CompletableFuture.supplyAsync(() -> {{/supportAsync}}Response.ok().entity("magic!").build(){{#supportAsync}}){{/supportAsync}};
+    }

@@ -1,0 +1,1 @@
+{{#isArray}}{{baseType}}<{{#items}}{{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}{{>beanValidatedType}}{{/items}}>{{/isArray}}{{^isArray}}{{#isMap}}{{baseType}}<String, {{#items}}{{#useBeanValidation}}{{>beanValidation}}{{/useBeanValidation}}{{>beanValidatedType}}{{/items}}>{{/isMap}}{{^isMap}}{{{datatypeWithEnum}}}{{/isMap}}{{/isArray}}

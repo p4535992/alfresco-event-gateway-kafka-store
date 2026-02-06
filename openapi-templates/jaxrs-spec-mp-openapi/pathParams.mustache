@@ -1,0 +1,1 @@
+{{#isPathParam}}@PathParam("{{baseName}}"){{#useJakartaEe}}{{#interfaceOnly}} @Parameter(name = "{{baseName}}"{{#required}}, required = true{{/required}}{{#description}}, description = "{{{description}}}"{{/description}}){{/interfaceOnly}}{{/useJakartaEe}}{{#useBeanValidation}}{{>beanValidationPathParams}}{{/useBeanValidation}} {{{dataType}}} {{paramName}}{{/isPathParam}}

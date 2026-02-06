@@ -1,55 +1,185 @@
-# Compiled class file
-*.class
+######################
+# Node
+######################
+/node/
+node_tmp/
+node_modules/
+npm-debug.log.*
+/.awcache/*
+/.cache-loader/*
 
-# Log file
-*.log
+######################
+# SASS
+######################
+.sass-cache/
 
-# BlueJ files
-*.ctxt
+######################
+# Eclipse
+######################
+*.pydevproject
+.project
+.metadata
+tmp/
+tmp/**/*
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.settings/
+.loadpath
+.factorypath
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# External tool builders
+.externalToolBuilders/**
 
-# Package Files #
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+# STS-specific
+/.sts4-cache/*
+
+######################
+# IntelliJ
+######################
+.idea/
+*.iml
+*.iws
+*.ipr
+*.ids
+*.orig
+classes/
+out/
+
+######################
+# Visual Studio Code
+######################
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+######################
+# Maven
+######################
+/log/
+/target/
+
+######################
+# Gradle
+######################
+.gradle/
+/build/
+/buildSrc/.gradle/
+/buildSrc/build/
+
+######################
+# Package Files
+######################
 *.jar
 *.war
-*.nar
 *.ear
-*.zip
-*.tar.gz
-*.rar
+*.db
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+######################
+# Windows
+######################
+# Windows image file caches
+Thumbs.db
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
+# Folder config file
+Desktop.ini
 
-### IntelliJ IDEA ###
-target/
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-### mac OS ###
+######################
+# Mac OSX
+######################
 .DS_Store
+.svn
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+######################
+# Directories
+######################
+/bin/
+/deploy/
+
+######################
+# Logs
+######################
+*.log*
+
+######################
+# Others
+######################
+*.class
+*.*~
+*~
+.merge_file*
+
+######################
+# Gradle Wrapper
+######################
+!gradle/wrapper/gradle-wrapper.jar
+
+######################
+# Maven Wrapper
+######################
+!.mvn/wrapper/maven-wrapper.jar
+
+######################
+# ESLint
+######################
+.eslintcache
+
+######################
+# Code coverage
+######################
+coverage/
+.nyc_output/
+
+######################
+# ABD
+######################
+/apache-maven-*/
+/.jdk/
+/src/main/resources/git-abd-quarkus-*
+*-workspace
+.env
+.tmp*
+.dist
+maven-wrapper-pack.zip
+/META-INF
+/.apt_generated/
+/.apt_generated_tests/
+/backup*
+/run-maven.cmd
+/run-maven.ps1
+/run-maven.sh
+/.env
+/.env.sample
+/scripts
+/.mvn
+/mvnw
+/mvnw.cmd
+/alfresco-event-gateway-api/target/maven-archiver/pom.properties
+/alfresco-event-gateway-api/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/alfresco-event-gateway-api/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/alfresco-event-gateway-app/target/test-classes/application.properties
+/alfresco-event-gateway-model/target/maven-archiver/pom.properties
+/alfresco-event-gateway-model/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/alfresco-event-gateway-model/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst

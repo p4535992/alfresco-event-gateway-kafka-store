@@ -1,0 +1,56 @@
+package {{package}};
+
+{{#imports}}import {{import}};
+{{/imports}}
+
+import {{javaxPackage}}.ws.rs.*;
+import {{javaxPackage}}.ws.rs.core.Response;
+
+{{#useJakartaEe}}{{#interfaceOnly}}
+import org.eclipse.microprofile.openapi.annotations.Operation;
+import org.eclipse.microprofile.openapi.annotations.parameters.Parameter;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
+import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
+{{#useTags}}
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
+{{/useTags}}
+{{/interfaceOnly}}{{/useJakartaEe}}
+{{#supportAsync}}
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.CompletableFuture;
+{{/supportAsync}}
+
+import java.io.InputStream;
+import java.util.Map;
+import java.util.List;
+{{#useBeanValidation}}import {{javaxPackage}}.validation.constraints.*;
+import {{javaxPackage}}.validation.Valid;{{/useBeanValidation}}
+
+/**
+* Represents a collection of functions to interact with the API endpoints.
+*/
+{{#useJakartaEe}}{{#interfaceOnly}}{{#useTags}}
+{{#operationTagName}}
+@Tag(name = "{{{operationTagName}}}")
+{{/operationTagName}}
+{{^operationTagName}}
+{{#operations}}{{#operation}}{{#-first}}
+{{#vendorExtensions.x-tags}}{{#-first}}
+@Tag(name = "{{tag}}")
+{{/-first}}{{/vendorExtensions.x-tags}}
+{{/-first}}{{/operation}}{{/operations}}
+{{/operationTagName}}
+{{/useTags}}{{/interfaceOnly}}{{/useJakartaEe}}
+@Path("{{commonPath}}"){{#hasConsumes}}
+@Consumes({ {{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}} }){{/hasConsumes}}{{#hasProduces}}
+@Produces({ {{#produces}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/produces}} }){{/hasProduces}}
+{{>generatedAnnotation}}
+
+public {{#interfaceOnly}}interface{{/interfaceOnly}}{{^interfaceOnly}}class{{/interfaceOnly}} {{classname}} {
+{{#operations}}
+{{#operation}}
+
+{{#interfaceOnly}}{{>apiInterface}}{{/interfaceOnly}}{{^interfaceOnly}}{{>apiMethod}}{{/interfaceOnly}}
+{{/operation}}
+}
+{{/operations}}

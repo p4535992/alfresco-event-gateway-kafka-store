@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE suppressions PUBLIC
+    "-//Checkstyle//DTD SuppressionFilter Configuration 1.2//EN"
+    "https://checkstyle.org/dtds/suppressions_1_2.dtd">
+
+<suppressions>
+
+    <!-- =============================================================== -->
+    <!-- CHECKSTYLE SUPPRESSIONS GUIDELINE (TEAM)                         -->
+    <!-- =============================================================== -->
+    <!-- Goals:
+         1) Keep Checkstyle as a "quality gate" for human-written code.
+         2) Avoid wasting time fixing generated/boilerplate sources.
+         3) Prefer narrow suppressions (specific paths/files/checks)
+            over broad "checks=.*" whenever realistic.
+
+         Rules of thumb:
+         - Generated code (OpenAPI/WSDL/clients/models): suppress everything.
+           Reason: generator output may change; fixing it is wasted effort.
+         - Boilerplate patterns (DTO/Mapper): suppress everything only if the
+           code is mostly mechanical and not worth style enforcement.
+         - Tests: usually allow longer lines (assertions, fixtures).
+           Reason: readability > strict line length in tests.
+
+         What NOT to do:
+         - Do not suppress entire src/main/java unless absolutely necessary.
+         - Do not add suppressions just to "make CI green" without reasoning.
+         - If a suppression is for a one-off case, prefer inline suppression
+           (CHECKSTYLE:OFF/ON) with a short explanation in code.
+    -->
+
+    <!-- =============================================================== -->
+    <!-- GENERATED / MACHINE-WRITTEN SOURCES                               -->
+    <!-- =============================================================== -->
+    <!-- These folders are produced by tools (OpenAPI / WSDL / generators).
+         We suppress all checks because:
+         - changes are overwritten by regeneration
+         - formatting/linting does not add value here
+         - diffs become noisy and maintenance cost rises
+    -->
+
+    <suppress files=".*src/main/java/it/abd/quarkus/common/openapi/alfresco/client/.*" checks=".*"/>
+    <suppress files=".*src/main/java/it/abd/quarkus/common/openapi/alfresco/server/api/.*" checks=".*"/>
+    <suppress files=".*src/main/java/it/abd/quarkus/common/openapi/alfresco/model/.*" checks=".*"/>
+    <suppress files=".*src/main/java/it/abd/quarkus/common/wsdl/model/.*" checks=".*"/>
+
+    <!-- Domain/model folder (if partly generated or intentionally exempt). -->
+    <suppress files=".*src/main/java/it/abd/quarkus/common/model/.*" checks=".*"/>
+
+    <!-- =============================================================== -->
+    <!-- BOILERPLATE FILE PATTERNS                                         -->
+    <!-- =============================================================== -->
+    <!-- DTOs and Mappers are often repetitive and derived from entities.
+         If you later decide to enforce style here, you can narrow these
+         suppressions to specific checks instead of suppressing all.
+    -->
+
+    <suppress files=".*DTO\.java" checks=".*"/>
+    <suppress files=".*Mapper\.java" checks=".*"/>
+
+    <!-- =============================================================== -->
+    <!-- TESTS                                                            -->
+    <!-- =============================================================== -->
+    <!-- In tests, line length is commonly relaxed.
+         Keep other checks active to avoid real quality regressions.
+    -->
+
+    <suppress files=".*Test\.java" checks="LineLength"/>
+    <suppress files=".*IT\.java" checks="LineLength"/>
+
+</suppressions>

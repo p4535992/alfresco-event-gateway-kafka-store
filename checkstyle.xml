@@ -1,0 +1,147 @@
+﻿<?xml version="1.0"?>
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
+    "https://www.puppycrawl.com/dtds/configuration_1_3.dtd">
+<module name="Checker">
+
+    <!-- =============================================================== -->
+    <!-- GLOBAL CONFIG (Checker level)                                   -->
+    <!-- =============================================================== -->
+
+    <!-- UTF-8 everywhere -->
+    <property name="charset" value="UTF-8"/>
+
+    <!-- Only Java files -->
+    <property name="fileExtensions" value="java"/>
+
+    <!-- =============================================================== -->
+    <!-- SUPPRESSIONS / FILTERS (Checker level)                           -->
+    <!-- =============================================================== -->
+
+    <!-- Allow suppression with inline comments:
+         // CHECKSTYLE:OFF
+         // CHECKSTYLE:ON
+    -->
+    <module name="SuppressWithPlainTextCommentFilter"/>
+
+    <!-- External suppressions file (generated code, DTO, Mapper, etc.) -->
+    <module name="SuppressionFilter">
+        <property name="file" value="checkstyle-suppressions.xml"/>
+    </module>
+
+    <!-- =============================================================== -->
+    <!-- CHECKER-LEVEL CHECKS (not TreeWalker)                            -->
+    <!-- =============================================================== -->
+
+    <!-- Enforce braces on 'else' blocks (except 'else if') -->
+    <module name="RegexpMultiline">
+        <property name="format" value="else(?!\s+if)\s*(\R\s*)?(?!\{)"/>
+        <property name="message" value="Always use braces on else blocks."/>
+    </module>
+
+    <!-- Line length (kept mild, formatting handled by Spotless) -->
+    <module name="LineLength">
+        <property name="max" value="120"/>
+        <property name="ignorePattern"
+                  value="^package.*|^import.*|http(s)?://.*"/>
+    </module>
+
+    <!-- =============================================================== -->
+    <!-- AST CHECKS (TreeWalker)                                          -->
+    <!-- =============================================================== -->
+    <module name="TreeWalker">
+
+        <!-- =============================================================== -->
+        <!-- CUSTOM PROJECT RULES (your rules win)                           -->
+        <!-- =============================================================== -->
+
+        <!-- Ban lambda syntax -->
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="\b\w+\s*->"/>
+            <property name="message" value="Avoid lambda syntax (->); use anonymous classes or named methods."/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <!-- Ban diamond operator on selected collections -->
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new\s+(ArrayList|LinkedList|HashMap|LinkedHashMap|TreeMap|HashSet|LinkedHashSet|TreeSet|ConcurrentHashMap|CopyOnWriteArrayList)\s*&lt;&gt;\s*\("/>
+            <property name="message" value="Avoid diamond operator on collections; use explicit type arguments."/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <!-- Ban raw constructors for selected collections -->
+        <module name="RegexpSinglelineJava">
+            <property name="format" value="new\s+(ArrayList|LinkedList|HashMap|LinkedHashMap|TreeMap|HashSet|LinkedHashSet|TreeSet|ConcurrentHashMap|CopyOnWriteArrayList)\s*(?!&lt;)\s*\("/>
+            <property name="message" value="Avoid raw collection constructors; use explicit type arguments."/>
+            <property name="ignoreComments" value="true"/>
+        </module>
+
+        <!-- Always require braces for control statements -->
+        <module name="NeedBraces">
+            <property name="allowSingleLineStatement" value="false"/>
+            <property name="tokens"
+                      value="LITERAL_IF, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_CASE, LITERAL_DEFAULT"/>
+        </module>
+
+        <!-- Naming rules with allowed exceptions -->
+        <module name="MemberName">
+            <property name="format"
+                      value="^(?!client$|service$|bridgeService$)[a-z][a-zA-Z0-9]*$"/>
+        </module>
+
+        <module name="ParameterName">
+            <property name="format"
+                      value="^(?!client$|service$|bridgeService$)[a-z][a-zA-Z0-9]*$"/>
+        </module>
+
+        <module name="LocalVariableName">
+            <property name="format"
+                      value="^(?!client$|service$|bridgeService$)[a-z][a-zA-Z0-9]*$"/>
+        </module>
+
+        <!-- =============================================================== -->
+        <!-- STANDARD / JHIPSTER-LIKE LOW-NOISE RULES                        -->
+        <!-- =============================================================== -->
+
+        <!-- Basic naming -->
+        <module name="PackageName"/>
+        <module name="TypeName"/>
+        <module name="MethodName"/>
+
+        <!-- Imports hygiene -->
+        <module name="AvoidStarImport"/>
+        <module name="UnusedImports"/>
+        <module name="RedundantImport"/>
+
+        <!-- Curly placement consistency -->
+        <module name="LeftCurly"/>
+        <module name="RightCurly">
+            <property name="option" value="alone"/>
+            <property name="tokens" value="LITERAL_IF, LITERAL_ELSE"/>
+        </module>
+
+        <!-- Correctness / consistency -->
+        <module name="EqualsHashCode"/>
+        <module name="ModifierOrder"/>
+        <module name="MissingSwitchDefault"/>
+
+        <!-- Empty blocks must contain text/comment -->
+        <module name="EmptyBlock">
+            <property name="option" value="TEXT"/>
+        </module>
+
+        <!-- =============================================================== -->
+        <!-- OPTIONAL (kept commented, unchanged)                            -->
+        <!-- =============================================================== -->
+
+        <!--
+        <module name="FinalParameters"/>
+        -->
+
+        <!--
+        <module name="WhitespaceAround"/>
+        <module name="WhitespaceAfter"/>
+        -->
+
+    </module>
+</module>
+
