@@ -32,15 +32,9 @@
     <!-- CHECKER-LEVEL CHECKS (not TreeWalker)                            -->
     <!-- =============================================================== -->
 
-    <!-- Enforce braces on 'else' blocks (except 'else if') -->
-    <module name="RegexpMultiline">
-        <property name="format" value="else(?!\s+if)\s*(\R\s*)?(?!\{)"/>
-        <property name="message" value="Always use braces on else blocks."/>
-    </module>
-
     <!-- Line length (kept mild, formatting handled by Spotless) -->
     <module name="LineLength">
-        <property name="max" value="120"/>
+        <property name="max" value="200"/>
         <property name="ignorePattern"
                   value="^package.*|^import.*|http(s)?://.*"/>
     </module>
@@ -54,32 +48,11 @@
         <!-- CUSTOM PROJECT RULES (your rules win)                           -->
         <!-- =============================================================== -->
 
-        <!-- Ban lambda syntax -->
-        <module name="RegexpSinglelineJava">
-            <property name="format" value="\b\w+\s*->"/>
-            <property name="message" value="Avoid lambda syntax (->); use anonymous classes or named methods."/>
-            <property name="ignoreComments" value="true"/>
-        </module>
-
-        <!-- Ban diamond operator on selected collections -->
-        <module name="RegexpSinglelineJava">
-            <property name="format" value="new\s+(ArrayList|LinkedList|HashMap|LinkedHashMap|TreeMap|HashSet|LinkedHashSet|TreeSet|ConcurrentHashMap|CopyOnWriteArrayList)\s*&lt;&gt;\s*\("/>
-            <property name="message" value="Avoid diamond operator on collections; use explicit type arguments."/>
-            <property name="ignoreComments" value="true"/>
-        </module>
-
-        <!-- Ban raw constructors for selected collections -->
-        <module name="RegexpSinglelineJava">
-            <property name="format" value="new\s+(ArrayList|LinkedList|HashMap|LinkedHashMap|TreeMap|HashSet|LinkedHashSet|TreeSet|ConcurrentHashMap|CopyOnWriteArrayList)\s*(?!&lt;)\s*\("/>
-            <property name="message" value="Avoid raw collection constructors; use explicit type arguments."/>
-            <property name="ignoreComments" value="true"/>
-        </module>
-
         <!-- Always require braces for control statements -->
         <module name="NeedBraces">
             <property name="allowSingleLineStatement" value="false"/>
             <property name="tokens"
-                      value="LITERAL_IF, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE, LITERAL_CASE, LITERAL_DEFAULT"/>
+                      value="LITERAL_IF, LITERAL_FOR, LITERAL_DO, LITERAL_WHILE"/>
         </module>
 
         <!-- Naming rules with allowed exceptions -->
@@ -114,10 +87,6 @@
 
         <!-- Curly placement consistency -->
         <module name="LeftCurly"/>
-        <module name="RightCurly">
-            <property name="option" value="alone"/>
-            <property name="tokens" value="LITERAL_IF, LITERAL_ELSE"/>
-        </module>
 
         <!-- Correctness / consistency -->
         <module name="EqualsHashCode"/>

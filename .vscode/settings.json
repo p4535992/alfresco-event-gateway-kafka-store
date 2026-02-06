@@ -36,11 +36,6 @@
   "maven.executable.path": "${workspaceFolder}/mvnw.cmd",
   "maven.terminal.useJavaHome": true,
 
-  "maven.settingsFile": "${workspaceFolder}/.mvn/settings.xml",
-  "maven.toolchainsFile": "${workspaceFolder}/.mvn/toolchains.xml",
-  "java.configuration.maven.userSettings": "${workspaceFolder}/.mvn/settings.xml",
-  "java.configuration.maven.userToolchains": "${workspaceFolder}/.mvn/toolchains.xml",
-
   "java.import.gradle.enabled": false,
   "java.import.exclusions": [
     "**/target/**",

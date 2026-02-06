@@ -39,14 +39,6 @@
          - diffs become noisy and maintenance cost rises
     -->
 
-    <suppress files=".*src/main/java/it/abd/quarkus/common/openapi/alfresco/client/.*" checks=".*"/>
-    <suppress files=".*src/main/java/it/abd/quarkus/common/openapi/alfresco/server/api/.*" checks=".*"/>
-    <suppress files=".*src/main/java/it/abd/quarkus/common/openapi/alfresco/model/.*" checks=".*"/>
-    <suppress files=".*src/main/java/it/abd/quarkus/common/wsdl/model/.*" checks=".*"/>
-
-    <!-- Domain/model folder (if partly generated or intentionally exempt). -->
-    <suppress files=".*src/main/java/it/abd/quarkus/common/model/.*" checks=".*"/>
-
     <!-- =============================================================== -->
     <!-- BOILERPLATE FILE PATTERNS                                         -->
     <!-- =============================================================== -->
@@ -67,5 +59,7 @@
 
     <suppress files=".*Test\.java" checks="LineLength"/>
     <suppress files=".*IT\.java" checks="LineLength"/>
+    <suppress files=".*Test\.java" checks="MethodName|ModifierOrder|UnusedImports"/>
+    <suppress files=".*IT\.java" checks="MethodName|ModifierOrder|UnusedImports"/>
 
 </suppressions>

@@ -1,0 +1,28 @@
+﻿spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: alfresco-gateway
+      auto-offset-reset: earliest
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+alfresco:
+  host: http://localhost:8080
+  authentication:
+    username: admin
+    password: admin
+  event:
+    gateway:
+      api:
+        version: 1
+        base-path: /v1
+      storage:
+        kafka:
+          bootstrapServers: ${spring.kafka.bootstrap-servers}
+          topic: alfresco-event-gateway
+
+logging:
+  level:
+    org.alfresco.quarkus.gateway.kafka: INFO

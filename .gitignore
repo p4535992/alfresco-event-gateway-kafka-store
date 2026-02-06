@@ -153,11 +153,11 @@ coverage/
 .nyc_output/
 
 ######################
-# ABD
+# 
 ######################
 /apache-maven-*/
 /.jdk/
-/src/main/resources/git-abd-quarkus-*
+/src/main/resources/git-*
 *-workspace
 .env
 .tmp*
