@@ -53,7 +53,7 @@ spring:
           alfresco-rest-api:
             provider: keycloak
             client-id: alfresco-event-gateway
-            client-secret: 29347df1-9a0b-4eea-bd57-74edc3df74cd
+            client-secret: XXX
             username: admin
             password: admin
             authorization-grant-type: password
