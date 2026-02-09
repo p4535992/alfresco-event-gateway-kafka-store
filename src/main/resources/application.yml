@@ -1,4 +1,4 @@
-﻿spring:
+spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
@@ -25,4 +25,116 @@ alfresco:
 
 logging:
   level:
-    org.alfresco.quarkus.gateway.kafka: INFO
+    org.alfresco.event.gateway.kafka: INFO
+
+---
+spring:
+  config:
+    activate:
+      on-profile: legacy
+  activemq:
+    broker-url: tcp://localhost:61616
+  jms:
+    cache:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://localhost:5433/alfresco-event-gateway
+    driver-class-name: org.postgresql.Driver
+    username: alfresco-event-gateway
+    password: alfresco-event-gateway
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+  security:
+    oauth2:
+      client:
+        registration:
+          alfresco-rest-api:
+            provider: keycloak
+            client-id: alfresco-event-gateway
+            client-secret: 29347df1-9a0b-4eea-bd57-74edc3df74cd
+            username: admin
+            password: admin
+            authorization-grant-type: password
+        provider:
+          keycloak:
+            token-uri: ${keycloak.auth-server-url}/realms/${keycloak.realm}/protocol/openid-connect/token
+
+springdoc:
+  api-docs:
+    path: /api-docs
+
+logging:
+  level:
+    org.alfresco.event.gateway.kafka: INFO
+
+alfresco:
+  event:
+    gateway:
+      api:
+        version: 1
+        base-path: /v${alfresco.event.gateway.api.version}
+      consumer:
+        activemq:
+          durable-subscription: true
+      subscription:
+        security:
+          group: GROUP_EVERYONE
+          managers:
+            group: GROUP_ALFRESCO_ADMINISTRATORS
+      storage:
+        kafka:
+          bootstrap-servers: kafka:9092
+          topic: alfresco-event-gateway
+
+keycloak:
+  enabled: true
+  realm: alfresco
+  auth-server-url: http://localhost:8999/auth
+  resource: alfresco-event-gateway
+  principal-attribute: preferred_username
+  enable-basic-auth: true
+  credentials:
+    secret: 29347df1-9a0b-4eea-bd57-74edc3df74cd
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics
+  health:
+    jms:
+      enabled: false
+  metrics:
+    export:
+      simple:
+        enabled: false
+  endpoint:
+    metrics:
+      enabled: false
+
+content:
+  service:
+    url: http://localhost:8080
+
+scheduled:
+  subscription:
+    status:
+      enabled: false
+    limit:
+      timestamp: 86400000
+    fixed:
+      delay: 86400000
+
+# Broker config samples (legacy profile):
+# alfresco.event.gateway.publication.jms.broker.my-broker.broker-url: tcp://localhost:61616
+# alfresco.event.gateway.publication.jms.broker.my-broker.username: test
+# alfresco.event.gateway.publication.jms.broker.my-broker.password: my-secret
+# alfresco.event.gateway.publication.jms.broker.my-broker.destination-pattern: aeg-{username}-(.+)
+# alfresco.event.gateway.publication.jms.broker.my-broker.circuit-threshold: 5
+# alfresco.event.gateway.publication.jms.broker.my-broker.circuit-halfOpenAfter: 1000
+# alfresco.event.gateway.publication.jms.broker.my-broker.retry-maxAttempts: 3
+# alfresco.event.gateway.publication.jms.broker.my-broker.retry-initInterval: 1000
+# alfresco.event.gateway.publication.jms.broker.my-broker.retry-multiplier: 2
+# alfresco.event.gateway.publication.jms.broker.my-broker.retry-maxInterval: 5000

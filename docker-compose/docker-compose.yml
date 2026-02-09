@@ -31,21 +31,40 @@ services:
                   "
     depends_on:
       - alfresco
-      - alfresco-identity-service
+      - keycloak
     ports:
       - 7070:8080
       - 8888:8888
 
   postgres-event-gateway:
+    restart: always
     image: postgres:13.1
+    cpus: 1.5
     mem_limit: 512m
     environment:
-      - POSTGRES_PASSWORD=alfresco-event-gateway
-      - POSTGRES_USER=alfresco-event-gateway
-      - POSTGRES_DB=alfresco-event-gateway
-    command: postgres -c max_connections=300 -c log_min_messages=LOG
+        - POSTGRES_PASSWORD=alfresco-event-gateway
+        - POSTGRES_USER=alfresco-event-gateway
+        - POSTGRES_DB=alfresco-event-gateway
+        - TZ=Europe/Rome
+        - LC_ALL=it_IT.UTF-8
+        - LANG=it_IT.UTF-8
+        - LANGUAGE=it_IT:it
+    command: "postgres
+          -c max_connections=300
+          -c logging_collector=on
+          -c log_min_messages=LOG
+          -c log_directory=/var/log/postgresql"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
-      - 5433:5432
+        - 127.0.0.1:5434:5432
+    volumes:
+        - ./data/postgresalfrescoeventgatewaydata:/var/lib/postgresql/data
+        - ./logs/postgresalfrescoeventgateway:/var/log/postgresql
+
 
   alfresco:
     image: alfresco/alfresco-content-repository-community:7.1.0-A9
@@ -88,13 +107,24 @@ services:
                 -Ddeployment.method=DOCKER_COMPOSE
                 -DlocalTransform.core-aio.url=http://transform-core-aio:8090/
                 -Dcsrf.filter.enabled=false
-                -Dauthentication.chain=identity-service1:identity-service,alfrescoNtlm1:alfrescoNtlm
+                -Dauthentication.chain=keycloak1:keycloak,alfrescoNtlm1:alfrescoNtlm
                 -Dalfresco.restApi.basicAuthScheme=true
-                -Didentity-service.enable-basic-auth=true
-                -Didentity-service.authentication.validation.failure.silent=false
-                -Didentity-service.auth-server-url=http://${HOST_IP}:8999/auth
-                -Didentity-service.realm=alfresco
-                -Didentity-service.resource=alfresco
+                -Dkeycloak.authentication.enabled=true
+                -Dkeycloak.authentication.sso.enabled=true
+                -Dkeycloak.authentication.allowTicketLogons=true
+                -Dkeycloak.authentication.allowHttpBasicLogon=true
+                -Dkeycloak.adapter.auth-server-url=https://${SERVER_NAME}/auth
+                -Dkeycloak.adapter.realm=${KEYCLOAK_REALM}
+                -Dkeycloak.adapter.resource=alfresco
+                -Dkeycloak.adapter.credentials.secret=\"${ALFRESCO_KEYCLOAK_ADAPTER_CREDENTIALS_SECRET}\"
+                -Dkeycloak.authentication.sso.handlePublicApi=true
+                -Dkeycloak.authentication.silentRemoteUserValidationFailure=true
+                -Dkeycloak.adapter.verify-token-audience=false
+                -Dkeycloak.adapter.autodetect-bearer-only=true
+                -Dkeycloak.authentication.prioritizeTicketLogons=true
+                -Dkeycloak.synchronization.enabled=false
+                -Dkeycloak.authentication.mapPersonPropertiesOnLogin=false
+                -Dsynchronization.autoCreatePeopleOnLogin=false
                 -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80
                 "
 
@@ -181,8 +211,8 @@ services:
       - alfresco
       - share
 
-  alfresco-identity-service:
-    image: quay.io/alfresco/alfresco-identity-service:1.5.0
+  keycloak:
+    image: quay.io/keycloak/keycloak:16.1.1
     environment:
       - KEYCLOAK_USER=admin
       - KEYCLOAK_PASSWORD=admin
